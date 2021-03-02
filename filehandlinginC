@@ -1,0 +1,677 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+void search(void);
+int duplicate(char A[]);
+void new(void);
+void edit(void);
+int main()
+{
+
+  int n,i;
+  char c,d,name[20],pass[20],pass1[20]="teacher@123";
+  printf("Are you a teacher or student(T/S):");
+  scanf("%c",&c);
+  getchar();
+  if((c=='T')||(c=='t')){
+      /*  printf("Please enter password:");
+        gets(pass);
+
+        if(strcmp(pass,pass1)==0)
+        printf("Password is correct\n");
+        else
+        {
+            printf("Password is incorrect");
+            exit(1);
+        }  */
+        printf("Entering new students data(N)\n");
+        printf("Editing a particluar student data(E)\n");
+        printf("What do you want to do:");
+        scanf("%c",&d);
+        getchar();
+         if((d=='N')||(d=='n')){
+         printf("Please enter the number of student:");
+           scanf("%d",&n);
+           getchar();
+           for(i=0;i<=n-1;i++)
+          new();
+        }
+          if((d=='E')||(d=='e'))
+          edit();
+          if((d=='S')||(d=='s'))
+              search();
+        }
+if((c=='S')||(c=='s')){
+  printf("You are a student\n");
+  search();
+}
+
+      }
+
+
+
+          void new(void)
+        {
+          int kk,rolld=0,zz;
+            char ch;
+          FILE *fp,*fp1;
+          fp=fopen("ddbf1.txt","w+");
+          if(fp==NULL)
+          {
+            printf("Error cannot open the file");
+            exit(1);
+          }
+
+            int i,j,n,t;
+            char name[20],rollno[10];
+            int em,mm,sm;
+            printf("Enter the name of student:");
+            gets(name);
+            kk=strlen(name);
+            if(kk>20){
+              printf("Name cannot have more then 20 caharacters" );
+              exit(-1);
+            }
+            printf("Entered student:",name);
+            fputs(name,fp);
+            rewind(fp);
+            fseek(fp,20,SEEK_CUR);
+            L1:
+            printf("%s   Roll No:",name);
+            gets(rollno);
+           zz=duplicate(rollno);
+            if(zz==1)
+            {
+              printf("This number is already exits in the database.Try another.\n");
+              rolld++;
+              if(rolld>1)
+              exit(-1);
+              if(rolld<=1)
+              goto L1;
+            }
+            kk=strlen(rollno);
+            if(kk>4){
+              printf("Roll No can be only of 4 character" );
+              exit(-1);
+            }
+            fputs(rollno,fp);
+            rewind(fp);
+            fseek(fp,30,SEEK_CUR);
+            printf("%s   Roll No:%s\n",name,rollno);
+            printf("English='E'   Mathematics='M'    Science='S'\n");
+            printf("%s   Roll No:%s   English:",name,rollno);
+            scanf("%d",&em);
+            if(em>100){
+          printf("The number cannot be greater then 999");
+          exit(1);
+           }
+
+          fprintf(fp,"%d",em);
+          rewind(fp);
+          fseek(fp,35,SEEK_CUR);
+          printf("%s   Roll No:%s   English:%d   Mathematics:",name,rollno,em);
+          scanf("%d",&mm);
+          if(mm>100){
+            printf("The number cannot be greater then 999");
+            exit(1);
+          }
+
+           fprintf(fp,"%d",mm);
+           rewind(fp);
+           fseek(fp,40,SEEK_CUR);
+           printf("%s   Roll No:%s   English:%d   Mathematics:%d   Science:",name,rollno,em,mm);
+           scanf("%d",&sm);
+           fflush(stdin);
+           if(sm>100){
+           printf("The number cannot be greater then 999");
+           exit(1);
+          }
+        fprintf(fp,"%d",sm);
+        rewind(fp);
+        fseek(fp,45,SEEK_CUR);
+        t=mm+em+sm;
+        fprintf(fp,"%d",t);
+        printf("%s   Roll No:%s   English:%d   Mathematics:%d   Science:%d    Total:%d\n",name,rollno,em,mm,sm,t);
+        rewind(fp);
+        fseek(fp,48,SEEK_CUR);
+        fprintf(fp,"\n");
+        fclose(fp);
+
+
+     fp=fopen("ddbf1.txt","r+");
+     fp1=fopen("db.txt","a+");
+
+          while(1)
+          {
+              ch=fgetc(fp);
+               if(ch==EOF)
+              break;
+          fputc(ch,fp1);
+          }
+
+
+       fclose(fp);
+       fclose(fp1);
+printf("Entry is done successfully\n");
+
+
+      }
+
+void search(){
+  printf("We are in search\n" );
+
+
+      int g,g1=0,g0;
+      int nn01,nn02,nn03,nn04,nn05,nn06,nn07,nn08,nn09,nn10;
+      int neof;
+      char nc01,nc02,nc03;
+      int n11,n12,n21,n22,n31,n41,n42,n51,n52,n71,n72,n81,n812,p=0;
+      char em1[3],mm1[3],sm1[3],all1[60],tm1[4],name1[21],al,n81c,n812c;
+      char nameall[20],rollnoall[20],emall[3],mmall[3],small[3],tall[5];
+      char rollnoc[5],rollread[5];
+      char op,ch;
+      int n,n1,n2,n0;
+  FILE *fp1;
+  fp1=fopen("db.txt","r+");
+  if(fp1==NULL)
+  {
+  printf("Error cannot open the file");
+  exit(1);
+  }
+  printf("Enter the Roll Number:");
+  scanf("%s",rollnoc);
+  getchar();
+
+  rewind(fp1);
+
+
+  fseek(fp1,20,SEEK_CUR);
+
+  fseek(fp1,5,SEEK_CUR);
+
+  fseek(fp1,-5,SEEK_CUR);
+
+  fgets(rollread,5,fp1);
+  fseek(fp1,1,SEEK_CUR);
+
+
+  fseek(fp1,-5,SEEK_CUR);
+
+fseek(fp1,29,SEEK_CUR);
+
+g=getw(fp1);
+fseek(fp1,0,SEEK_CUR);
+
+if(g!=-1)
+{
+fseek(fp1,-4,SEEK_CUR);
+g=fgetc(fp1);
+
+}
+g0=g-'0';
+
+ /*fseek(fp1,-1,SEEK_CUR);   can be used later*/
+fseek(fp1,-30,SEEK_CUR);
+
+ if(strcmp(rollread,rollnoc)==0){
+ printf("CoOOooL This roll number is in database\n");
+   g1=1;
+}
+
+  if(g1==0 && g==-1)
+  {
+    printf("This rollno is not in database\n");
+    exit(-1);
+  }
+  if(g1==0 &&  g!=-1)                   /*   (g==0)    if or else can be replaced*/
+  {
+    while(1){
+      fseek(fp1,50,SEEK_CUR);
+      fgets(rollread,5,fp1);
+      fseek(fp1,1,SEEK_CUR);
+      fseek(fp1,-5,SEEK_CUR);
+      if(strcmp(rollread,rollnoc)==0){
+      printf("This RoLL NO is in database\n" );
+      break;
+    }
+      else{
+        fseek(fp1,29,SEEK_CUR);
+        g=getw(fp1);
+        if(g==-1){
+          printf("This rollno is not in database\n" );
+          exit(-1);
+        }
+        if(g!=-1)
+        {
+        fseek(fp1,-4,SEEK_CUR);
+        g=fgetc(fp1);
+
+        }
+      }
+fseek(fp1,-30,SEEK_CUR);
+    }
+  }
+  printf("English='E'   Mathematics='M'    Science='S'  All:'A'\n");
+     printf("What do you wanna do:");
+   scanf("%c",&op);
+
+   switch(op)
+   {
+
+         case 'E':
+         {   fseek(fp1,10,SEEK_CUR);
+
+               fgets(em1,3,fp1);
+
+
+             printf("Your English marks is:%s\n",em1);
+              fseek(fp1,-14,SEEK_CUR);
+
+             break;
+         }
+
+         case 'M':
+        {
+        fseek(fp1,15,SEEK_CUR);
+
+              fgets(mm1,3,fp1);
+
+
+            printf("Your Mathematics marks is:%s\n",mm1);
+             fseek(fp1,-19,SEEK_CUR);
+             break;
+
+        }
+
+
+        case 'S':
+       {
+           fseek(fp1,20,SEEK_CUR);
+
+             fgets(sm1,3,fp1);
+
+           printf("Your Science marks is:%s\n",sm1);
+            fseek(fp1,-24,SEEK_CUR);
+           break;
+       }
+       case 'T':
+       {
+           fseek(fp1,25,SEEK_CUR);
+
+             fgets(tm1,4,fp1);
+
+
+           printf("Your Total marks is:%s\n",tm1);
+            fseek(fp1,-28,SEEK_CUR);
+           break;
+
+       }
+        case 'N':
+       {
+           fseek(fp1,-20,SEEK_CUR);
+           fgets(name1,21,fp1);
+           printf("Your Name:%s\n",name1);
+           fseek(fp1,5,SEEK_CUR);/** fp1 is on 77uu  that is 75location  **/
+           break;
+       }
+       case 'A':
+       {
+            fseek(fp1,-20,SEEK_CUR);
+            fgets(nameall,21,fp1);
+            printf("Name:%s\n",nameall);
+            fgets(rollnoall,5,fp1);
+            printf("Roll No:%s\n",rollnoall);
+            fseek(fp1,6,SEEK_CUR);
+            fgets(emall,3,fp1);
+            printf("English Mark:%s\n",emall);
+            fseek(fp1,3,SEEK_CUR);
+            fgets(mmall,3,fp1);
+            printf("Mathematics Mark:%s\n",mmall);
+            fseek(fp1,3,SEEK_CUR);
+            fgets(small,3,fp1);
+            printf("Science Mark:%s\n",small);
+            fseek(fp1,3,SEEK_CUR);
+            fgets(tall,4,fp1);
+            printf("Total Mark:%s\n",tall);
+       }
+   }
+fclose(fp1);
+ }
+
+void edit()
+
+{
+  int tea,rolld=0,zz;
+  int Enum,mnum,snum;
+  int  eme,ems,emt,emm;
+  char chn='\0',namee[20];
+  char namea[20],rollnoa[5],emea[3],emsa[3],emma[3];
+  printf("We are in edit\n" );
+  int sl;
+  int kk;
+  int g,g1=0,g0;
+  int nn01,nn02,nn03,nn04,nn05,nn06,nn07,nn08,nn09,nn10;
+  int neof;
+  char nc01,nc02,nc03;
+  int n11,n12,n21,n22,n31,n41,n42,n51,n52,n71,n72,n81,n812,p=0;
+  char em1[3],mm1[3],sm1[3],all1[60],tm1[4],name1[21],al,n81c,n812c;
+  char nameall[20],rollnoall[20],emall[3],mmall[3],small[3],tall[5];
+  char rollnoc[5],rollread[5];
+  char op,ch;
+  int n,n1,n2,n0;
+  FILE *fp1;
+  fp1=fopen("db.txt","r+");
+  if(fp1==NULL)
+  {
+  printf("Error cannot open the file");
+  exit(1);
+  }
+  printf("Enter the Roll Number:");
+  scanf("%s",rollnoc);
+  getchar();
+  kk=strlen(rollnoc);
+  if(kk>4){
+    printf("Roll No can be only of 4 character" );
+    exit(-1);
+  }
+rewind(fp1);
+  fseek(fp1,20,SEEK_CUR);
+  fseek(fp1,5,SEEK_CUR);
+  fseek(fp1,-5,SEEK_CUR);
+  fgets(rollread,5,fp1);
+  fseek(fp1,1,SEEK_CUR);
+  fseek(fp1,-5,SEEK_CUR);
+fseek(fp1,29,SEEK_CUR);
+g=getw(fp1);
+fseek(fp1,0,SEEK_CUR);
+if(g!=-1)
+{
+fseek(fp1,-4,SEEK_CUR);
+g=fgetc(fp1);
+}
+g0=g-'0';
+ /*fseek(fp1,-1,SEEK_CUR);   can be used later*/
+fseek(fp1,-30,SEEK_CUR);
+ if(strcmp(rollread,rollnoc)==0){
+ printf("CoOOooL This roll number is in database\n");
+   g1=1;
+}
+  if(g1==0 && g==-1)
+  {
+    printf("This rollno is not in database\n");
+    exit(-1);
+  }
+  if(g1==0 &&  g!=-1)                   /*   (g==0)    if or else can be replaced*/
+  {
+    while(1){
+      fseek(fp1,50,SEEK_CUR);
+      fgets(rollread,5,fp1);
+      fseek(fp1,1,SEEK_CUR);
+      fseek(fp1,-5,SEEK_CUR);
+      if(strcmp(rollread,rollnoc)==0){
+      printf("This RoLL NO is in database\n" );
+      break;
+    }
+      else{
+        fseek(fp1,29,SEEK_CUR);
+        g=getw(fp1);
+        if(g==-1){
+          printf("This rollno is not in database\n" );
+          exit(-1);
+        }
+        if(g!=-1)
+        {
+
+        fseek(fp1,-4,SEEK_CUR);
+        g=fgetc(fp1);
+
+        }
+      }
+fseek(fp1,-30,SEEK_CUR);
+    }
+  }
+  printf("English='E'   Mathematics='M'    Science='S'  All:'A'\n");
+     printf("What do you wanna do:");
+   scanf("%c",&op);
+   switch(op)
+   {
+
+         case 'E':
+         {   fseek(fp1,10,SEEK_CUR);
+           for(int i=0;i<=2;i++)
+           fputc(chn,fp1);
+           fseek(fp1,-3,SEEK_CUR);
+           printf("Enter the English Marks you want now:");
+           scanf("%d",&eme);
+                fprintf(fp1,"%d",eme);
+          printf("Your Edited English Marks is:%d\n",eme);
+          rewind(fp1);      /** fp1 is on 77uu  that is 75location  **/
+           break;
+         }
+         case 'M':
+        {
+        fseek(fp1,15,SEEK_CUR);
+        for(int i=0;i<=2;i++)
+        fputc(chn,fp1);
+        fseek(fp1,-3,SEEK_CUR);
+        printf("Enter the Mathematics Marks you want now:");
+        scanf("%d",&emm);
+        fprintf(fp1,"%d",emm);
+        printf("Your Edited Mathematics Marks is:%d\n",emm);
+            break;
+        }
+        case 'S':
+       {
+           fseek(fp1,20,SEEK_CUR);
+           for(int i=0;i<=2;i++)
+           fputc(chn,fp1);
+           fseek(fp1,-3,SEEK_CUR);
+           printf("Enter the English Marks you want now:");
+           scanf("%d",&ems);
+           fprintf(fp1,"%d",ems);
+           printf("Your Edited English Marks is:%d\n",ems);
+           break;
+       }
+       case 'T':
+       {
+           fseek(fp1,25,SEEK_CUR);
+           for(int i=0;i<=2;i++)
+           fputc(chn,fp1);
+           fseek(fp1,-3,SEEK_CUR);
+           printf("Enter the English Marks you want now:");
+           scanf("%d",&emt);
+           fprintf(fp1,"%d",emt);
+           printf("Your Edited English Marks is:%d\n",emt);
+           break;
+
+       }
+        case 'N':
+       {
+           fseek(fp1,-20,SEEK_CUR);
+           for(int i=0;i<=19;i++)
+           fputc(chn,fp1);
+           fseek(fp1,-20,SEEK_CUR);
+
+           printf("Enter the name of student you want know:");
+           fflush(stdin);
+           gets(namee);
+           fputs(namee,fp1);
+           printf("Your edited name is %s\n",namee );
+           break;
+       }
+       case 'A':
+       {
+            fseek(fp1,-20,SEEK_CUR);
+            for(int i=0;i<=19;i++)
+            fputc(chn,fp1);
+            fseek(fp1,-20,SEEK_CUR);
+printf("Enter the name of student:");
+fflush(stdin);
+gets(namea);
+printf("Entered name is %s\n",namea );
+fputs(namea,fp1);
+sl=strlen(namea);
+  fseek(fp1,-sl,SEEK_CUR);
+
+fseek(fp1,20,SEEK_CUR);
+L4:
+printf("Enter the Rollno you want know:");
+          gets(rollnoa);
+          zz=duplicate(rollnoa);
+           if(zz==1)
+           {
+             printf("This number is already exits in the database.Try another.\n");
+             rolld++;
+             if(rolld>1)
+             exit(-1);
+             if(rolld<=1)
+             goto L4;
+           }
+          kk=strlen(rollnoa);
+          if(kk>4){
+            printf("Roll No can be only of 4 character" );
+            exit(-1);
+          }
+            printf("Name:%s Rollno:%s\n",namea,rollnoa);
+            for(int i=0;i<=9;i++)
+            putc(chn,fp1);
+fseek(fp1,-10,SEEK_CUR);
+fputs(rollnoa,fp1);
+fseek(fp1,-4,SEEK_CUR);
+fseek(fp1,10,SEEK_CUR);
+          printf("Enter English Marks:" );
+            gets(emea);
+        Enum=atoi(emea);
+            if(Enum>=100){
+              printf("The number cannot be greater than 100.");
+              exit(-1);
+            }
+fputs(emea,fp1);
+            sl=strlen(emea);
+            fseek(fp1,-sl,SEEK_CUR);
+            fseek(fp1,5,SEEK_CUR);
+            printf("Enter Mathematics Marks:" );
+            gets(emma);
+              mnum=atoi(emma);
+            if(mnum>=100){
+              printf("The number cannot be greater than 100.");
+              exit(-1);
+            }
+            fputs(emma,fp1);
+            sl=strlen(emea);
+            fseek(fp1,-sl,SEEK_CUR);
+            fseek(fp1,5,SEEK_CUR);
+            printf("Enter Science Marks:" );
+            gets(emsa);
+            snum=atoi(emsa);
+            if(snum>=100){
+              printf("The number cannot be greater than 100.");
+              exit(-1);
+            }
+fputs(emsa,fp1);
+
+            sl=strlen(emsa);
+            fseek(fp1,-sl,SEEK_CUR);
+            fseek(fp1,5,SEEK_CUR);
+
+tea=Enum+mnum+snum;
+
+fprintf(fp1,"%d",tea);
+/* can have a problem with fprintf(fp1,'\0') in (49+50n) printf("plocation=%d\n",ftell(fp1) ); */
+
+       }
+       default:
+       {
+         printf("The data is edited successfully.");
+         break;
+       }
+   }
+fclose(fp1);
+ }
+
+ 
+int duplicate(char A[])
+{
+int duplicate=0,kk1;
+  int g,g1=0,g0;
+  int nn01,nn02,nn03,nn04,nn05,nn06,nn07,nn08,nn09,nn10;
+  int neof;
+  char nc01,nc02,nc03;
+  int n11,n12,n21,n22,n31,n41,n42,n51,n52,n71,n72,n81,n812,p=0;
+  char em1[3],mm1[3],sm1[3],all1[60],tm1[4],name1[21],al,n81c,n812c;
+  char nameall[20],rollnoall[20],emall[3],mmall[3],small[3],tall[5];
+  char rollnoc[5],rollread[5];
+  char op,ch;
+  int n,n1,n2,n0;
+  FILE *fp1;
+  fp1=fopen("db.txt","r+");
+  if(fp1==NULL)
+  {
+  printf("Error cannot open the file");
+  exit(1);
+  }
+  strcpy(rollnoc,A);
+
+  rewind(fp1);
+  fseek(fp1,20,SEEK_CUR);
+  fseek(fp1,5,SEEK_CUR);
+  fseek(fp1,-5,SEEK_CUR);
+  fgets(rollread,5,fp1);
+  fseek(fp1,1,SEEK_CUR);
+  fseek(fp1,-5,SEEK_CUR);
+fseek(fp1,29,SEEK_CUR);
+g=getw(fp1);
+fseek(fp1,0,SEEK_CUR);
+if(g!=-1)
+{
+fseek(fp1,-4,SEEK_CUR);
+g=fgetc(fp1);
+}
+g0=g-'0';
+ /*fseek(fp1,-1,SEEK_CUR);   can be used later*/
+fseek(fp1,-30,SEEK_CUR);
+ if(strcmp(rollread,rollnoc)==0){
+ printf("CoOOooL This roll number is in database\n");
+   g1=1;
+}
+  if(g1==0 && g==-1)
+  {
+    printf("This rollno is not in database\n");
+    exit(-1);
+  }
+  if(g1==0 &&  g!=-1)                   /*   (g==0)    if or else can be replaced*/
+  {
+    while(1){
+      fseek(fp1,50,SEEK_CUR);
+      fgets(rollread,5,fp1);
+      fseek(fp1,1,SEEK_CUR);
+      fseek(fp1,-5,SEEK_CUR);
+      if(strcmp(rollread,rollnoc)==0){
+      duplicate=1;
+      break;
+    }
+      else{
+        fseek(fp1,29,SEEK_CUR);
+        g=getw(fp1);
+        if(g==-1){
+          printf("This Roll No is available\n" );
+          kk1=2;
+          fclose(fp1);
+          return 0;
+        }
+        if(g!=-1)
+        {
+        fseek(fp1,-4,SEEK_CUR);
+        g=fgetc(fp1);
+        fseek(fp1,0,SEEK_CUR);
+        }
+      }
+fseek(fp1,-30,SEEK_CUR);
+    }
+  }
+fclose(fp1);
+if(duplicate==1)
+return 1;
+if(duplicate==0)
+return 0;
+}
