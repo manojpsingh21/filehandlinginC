@@ -13,7 +13,7 @@ int main()
   scanf("%c",&c);
   getchar();
        if((c=='T')||(c=='t')){
-      /*  printf("Please enter password:");
+       printf("Please enter password:");
         gets(pass);
         if(strcmp(pass,pass1)==0)
         printf("Password is correct\n");
@@ -21,7 +21,7 @@ int main()
         {
             printf("Password is incorrect");
             exit(1);
-        }*/
+        }
         printf("Entering new students data(N)\n");
         printf("Editing a particluar student data(E)\n");
         printf("What do you want to do:");
