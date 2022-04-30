@@ -7,23 +7,21 @@ void new(void);
 void edit(void);
 int main()
 {
-
   int n,i;
   char c,d,name[20],pass[20],pass1[20]="teacher@123";
   printf("Are you a teacher or student(T/S):");
   scanf("%c",&c);
   getchar();
-  if((c=='T')||(c=='t')){
-      /*  printf("Please enter password:");
+       if((c=='T')||(c=='t')){
+       printf("Please enter password:");
         gets(pass);
-
         if(strcmp(pass,pass1)==0)
         printf("Password is correct\n");
         else
         {
             printf("Password is incorrect");
             exit(1);
-        }  */
+        }
         printf("Entering new students data(N)\n");
         printf("Editing a particluar student data(E)\n");
         printf("What do you want to do:");
@@ -49,7 +47,6 @@ if((c=='S')||(c=='s')){
       }
 
 
-
           void new(void)
         {
           int kk,rolld=0,zz;
@@ -58,7 +55,7 @@ if((c=='S')||(c=='s')){
           fp=fopen("ddbf1.txt","w+");
           if(fp==NULL)
           {
-            printf("Error cannot open the file");
+            printf("Error1 cannot open the file");
             exit(1);
           }
 
@@ -175,7 +172,7 @@ void search(){
   fp1=fopen("db.txt","r+");
   if(fp1==NULL)
   {
-  printf("Error cannot open the file");
+  printf("Error2 cannot open the file");
   exit(1);
   }
   printf("Enter the Roll Number:");
@@ -363,7 +360,7 @@ void edit()
   fp1=fopen("db.txt","r+");
   if(fp1==NULL)
   {
-  printf("Error cannot open the file");
+  printf("Error3 cannot open the file");
   exit(1);
   }
   printf("Enter the Roll Number:");
@@ -589,7 +586,7 @@ fprintf(fp1,"%d",tea);
 fclose(fp1);
  }
 
- 
+
 int duplicate(char A[])
 {
 int duplicate=0,kk1;
@@ -605,11 +602,7 @@ int duplicate=0,kk1;
   int n,n1,n2,n0;
   FILE *fp1;
   fp1=fopen("db.txt","r+");
-  if(fp1==NULL)
-  {
-  printf("Error cannot open the file");
-  exit(1);
-  }
+
   strcpy(rollnoc,A);
 
   rewind(fp1);
@@ -631,13 +624,13 @@ g0=g-'0';
  /*fseek(fp1,-1,SEEK_CUR);   can be used later*/
 fseek(fp1,-30,SEEK_CUR);
  if(strcmp(rollread,rollnoc)==0){
- printf("CoOOooL This roll number is in database\n");
+
    g1=1;
 }
   if(g1==0 && g==-1)
   {
-    printf("This rollno is not in database\n");
-    exit(-1);
+    printf("This Rollno is available in database\n");
+
   }
   if(g1==0 &&  g!=-1)                   /*   (g==0)    if or else can be replaced*/
   {
@@ -672,6 +665,9 @@ fseek(fp1,-30,SEEK_CUR);
 fclose(fp1);
 if(duplicate==1)
 return 1;
+if(g1==1)
+return 1;
 if(duplicate==0)
 return 0;
+
 }
